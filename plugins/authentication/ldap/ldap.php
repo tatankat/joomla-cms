@@ -81,8 +81,7 @@ class PlgAuthenticationLdap extends CMSPlugin
 			{
 				try
 				{
-					$dn = str_replace('[username]', $this->params->get('username', ''), $this->params->get('users_dn', ''));
-
+					$dn = $this->params->get('username', '');
 					$ldap->bind($dn, $this->params->get('password', ''));
 				}
 				catch (ConnectionException | LdapException $exception)
@@ -142,7 +141,11 @@ class PlgAuthenticationLdap extends CMSPlugin
 				// We just accept the result here
 				try
 				{
-					$dn = str_replace('[username]', $ldap->escape($credentials['username'], '', LDAP_ESCAPE_DN), $this->params->get('users_dn', ''));
+					if ($this->params->get('users_dn', '') == '') {
+						$dn = $credentials['username'];
+					} else {
+						$dn = str_replace('[username]', $ldap->escape($credentials['username'], '', LDAP_ESCAPE_DN), $this->params->get('users_dn', ''));
+					}
 					$ldap->bind($dn, $credentials['password']);
 				}
 				catch (ConnectionException | LdapException $exception)
