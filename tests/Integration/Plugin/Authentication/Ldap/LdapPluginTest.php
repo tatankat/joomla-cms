@@ -29,8 +29,8 @@ use Symfony\Component\Ldap\Ldap;
  */
 class LdapPluginTest extends UnitTestCase
 {
-    public const LDAPPORT = "1389";
-    public const SSLPORT = "1636";
+    public const LDAPPORT = JTEST_LDAP_PORT;
+    public const SSLPORT = JTEST_LDAP_PORT_SSL;
 
     private function getPlugin($options): CMSPlugin
     {
@@ -95,7 +95,7 @@ class LdapPluginTest extends UnitTestCase
         // tests are executed in parallel as root
         // setUp is executed before every test
         $this->default_options = [
-            'host' => "openldap",
+            'host' => JTEST_LDAP_HOST,
             'port' => self::LDAPPORT,
             'use_ldapV3' => 1,
             'encryption' => "none",
@@ -139,6 +139,7 @@ class LdapPluginTest extends UnitTestCase
      */
     public function testOnUserAuthenticateAnonymousSearch()
     {
+        $options["ldap_debug"] = 1;
         $options = $this->default_options;
         $options["auth_method"] = "search";
         $options["users_dn"] = "";

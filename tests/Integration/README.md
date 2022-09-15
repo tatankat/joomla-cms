@@ -8,8 +8,8 @@ When you are checking out the current development branch of 4.x and run `compose
 
 1. Checkout the current Joomla 4.x development branch from Github. (https://github.com/joomla/joomla-cms.git)
 2. Run `composer install` in the root of your checkout.
-3. Copy `./phpunit.xml.dist` to `./phpunit.xml`. Edit configuration file `./phpunit.xml`. Within the `<php>` adapt
-`JTEST_DB_ENGINE`, `JTEST_DB_HOST`, `JTEST_DB_NAME`, `JTEST_DB_USER`, and `JTEST_DB_PASSWORD`
+3. Copy `./phpunit.xml.dist` to `./phpunit.xml`. Edit configuration file `./phpunit.xml`. Within the `<php>` adapt the value of
+`JTEST_DB_ENGINE` (mysqli or pgsql), `JTEST_DB_HOST`, `JTEST_DB_NAME`, `JTEST_DB_USER`, and `JTEST_DB_PASSWORD`
 to your local environment.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -44,3 +44,5 @@ Time: 155 ms, Memory: 10.00 MB
 
 OK (8 tests, 33 assertions)
 ```
+
+If you configured your environment for the integration tests, you can run integration and unit tests at once, using `./libraries/vendor/bin/phpunit`.
